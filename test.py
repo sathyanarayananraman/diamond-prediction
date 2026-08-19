@@ -35,6 +35,18 @@ def set_bg(image_file):
             background-position: center;
             background-repeat: no-repeat;
         }}
+
+        html[data-theme="light"] .stApp {{
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.55),
+                    rgba(255,255,255,0.78)
+                ),
+                url("data:image/png;base64,{data}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }}
         </style>
         """,
         unsafe_allow_html=True
@@ -91,6 +103,25 @@ st.markdown(
         }
 
         .subtitle { color: var(--text-muted); font-size: 1.05rem; margin-top: 0; }
+
+        .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
+        .stNumberInput label, .stSelectbox label, .stTextInput label, .stTextArea label,
+        .stRadio label, .stCheckbox label, .stDateInput label,
+        .stSlider label, .stButton button, .stTabs [role="tab"] {
+            color: var(--text-main) !important;
+        }
+
+        .stNumberInput div[data-testid="stWidgetLabel"],
+        .stSelectbox div[data-testid="stWidgetLabel"],
+        .stTextInput div[data-testid="stWidgetLabel"],
+        .stTextArea div[data-testid="stWidgetLabel"],
+        .stRadio div[data-testid="stWidgetLabel"],
+        .stCheckbox div[data-testid="stWidgetLabel"],
+        .stDateInput div[data-testid="stWidgetLabel"],
+        .stSlider div[data-testid="stWidgetLabel"] {
+            color: var(--text-main) !important;
+            opacity: 1 !important;
+        }
 
         .result-card {
             padding: 1.4rem 1.6rem;
