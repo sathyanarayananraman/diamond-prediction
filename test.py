@@ -1,3 +1,4 @@
+import base64
 import pickle
 import warnings
 from pathlib import Path
@@ -12,11 +13,8 @@ warnings.filterwarnings("ignore")
 pd.set_option("display.max_columns", None)
 pd.set_option("display.width", 150)
 
-MODELS_DIR = Path("models")  # update this if your models folder is elsewhere
+MODELS_DIR = Path(__file__).resolve().parent / "models"
 assert MODELS_DIR.exists(), f"Models folder not found at {MODELS_DIR.resolve()}"
-
-import base64
-from pathlib import Path
 
 
 def set_bg(image_file):
@@ -56,7 +54,33 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-         .stApp { background-color: #0f1117; }
+        :root {
+            --app-bg: #0f1117;
+            --card-bg: rgba(185,147,244,0.12);
+            --card-border: rgba(185,147,244,0.35);
+            --text-main: #f5f5f7;
+            --text-muted: #9aa4b2;
+            --badge-bg: rgba(138,198,255,0.15);
+            --badge-border: rgba(138,198,255,0.4);
+            --badge-text: #8ac6ff;
+        }
+
+        html[data-theme="light"] {
+            --app-bg: #f4f7fb;
+            --card-bg: rgba(147, 197, 253, 0.16);
+            --card-border: rgba(59, 130, 246, 0.24);
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --badge-bg: rgba(14, 165, 233, 0.08);
+            --badge-border: rgba(14, 165, 233, 0.28);
+            --badge-text: #0f172a;
+        }
+
+        .stApp {
+            background-color: var(--app-bg) !important;
+            color: var(--text-main) !important;
+        }
+
         .main-title {
             font-size: 2.4rem;
             font-weight: 700;
@@ -65,23 +89,27 @@ st.markdown(
             -webkit-text-fill-color: transparent;
             margin-bottom: 0rem;
         }
-        .subtitle { color: #9aa4b2; font-size: 1.05rem; margin-top: 0; }
+
+        .subtitle { color: var(--text-muted); font-size: 1.05rem; margin-top: 0; }
+
         .result-card {
             padding: 1.4rem 1.6rem;
             border-radius: 14px;
-            background: linear-gradient(135deg, rgba(185,147,244,0.12), rgba(138,198,255,0.08));
-            border: 1px solid rgba(185,147,244,0.35);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             margin-top: 0.6rem;
         }
-        .result-label { color: #9aa4b2; font-size: 0.95rem; margin-bottom: 0.2rem; }
-        .result-value { font-size: 2.1rem; font-weight: 700; color: #f5f5f7; }
+
+        .result-label { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.2rem; }
+        .result-value { font-size: 2.1rem; font-weight: 700; color: var(--text-main); }
+
         .cluster-badge {
             display: inline-block;
             padding: 0.35rem 0.9rem;
             border-radius: 999px;
-            background: rgba(138,198,255,0.15);
-            border: 1px solid rgba(138,198,255,0.4);
-            color: #8ac6ff;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--badge-text);
             font-weight: 600;
             font-size: 0.95rem;
         }
