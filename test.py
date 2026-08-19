@@ -16,6 +16,9 @@ MODELS_DIR = Path("models")  # update this if your models folder is elsewhere
 assert MODELS_DIR.exists(), f"Models folder not found at {MODELS_DIR.resolve()}"
 
 import base64
+from pathlib import Path
+
+
 def set_bg(image_file):
     with open(image_file, "rb") as f:
         data = base64.b64encode(f.read()).decode()
@@ -39,7 +42,8 @@ def set_bg(image_file):
         unsafe_allow_html=True
     )
 
-set_bg(r"D:\python_projects\project 4\pic 2.jpg")
+BASE_DIR = Path(__file__).resolve().parent
+set_bg(BASE_DIR / "pic 2.jpg")
 # ----------------------------------------------------------------------------
 # Page config & styling
 # ----------------------------------------------------------------------------
